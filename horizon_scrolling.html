@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Shift Key Horizon Scrolling</title>
+</head>
+<body>
+<div id="test" style="width: 300px; height: 300px; overflow: auto;">
+	<img src="https://source.unsplash.com/random" width="1500" height="2000" >
+</div>
+<script>
+// author : yoon9 (https://github.com/yoon9)
+function Init(){
+	var isShiftPressing = null; // null or "keyup" or "keydown"
+	var $wrap = document.getElementById('test');
+
+	var ShiftDetact = function(e){
+		if(!(e.keyCode === 16 && isShiftPressing != e.type)) return;
+		isShiftPressing = e.type;
+	}
+
+	var MoveScrollHorizon = function($target, e){ 
+		if (e.wheelDelta >= 120){
+			$target.scrollLeft -= 120;
+		}
+		else if (e.wheelDelta <= -120){
+			$target.scrollLeft += 120;
+		}
+	}
+
+	// 시프트 감지
+	document.addEventListener('keyup', ShiftDetact)
+	document.addEventListener('keydown', ShiftDetact)
+
+	// 스크롤 이벤트 발생시 shift 연동하여 가로로 이동되게 수정
+	$wrap.addEventListener('mousewheel', function(e){
+		if(isShiftPressing === "keydown"){
+			e.preventDefault();
+			e.stopPropagation();
+			MoveScrollHorizon(this, e);
+		}
+	})
+
+}
+
+Init();
+//-->
+</script>
+</body>
+</html>
