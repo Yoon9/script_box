@@ -29,11 +29,11 @@ function Init(){
 		}
 	}
 
-	// 시프트 감지
+	// Detact Shift Press Status
 	document.addEventListener('keyup', ShiftDetact)
 	document.addEventListener('keydown', ShiftDetact)
 
-	// 스크롤 이벤트 발생시 shift 연동하여 가로로 이동되게 수정
+	// mousewheel event
 	$wrap.addEventListener('mousewheel', function(e){
 		if(isShiftPressing === "keydown"){
 			e.preventDefault();
